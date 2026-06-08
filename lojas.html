@@ -40,10 +40,10 @@
     }
     .sbtn.dk { background: var(--d); color: #fff; }
     .sbtn.dk:hover { opacity: 0.82; }
-    .sbtn.ol { border: 1.5px solid var(--d); color: var(--d); }
-    .sbtn.ol:hover { background: var(--d); color: #fff; }
-    .sbtn.ue { background: #000; color: #fff; }
-    .sbtn.ue:hover { opacity: 0.78; }
+    .sbtn.ol { background: #fff; border: 1.5px solid rgba(38,53,58,.2); color: var(--d); }
+    .sbtn.ol:hover { border-color: var(--d); }
+    .sbtn.ue { background: var(--y); color: var(--d); }
+    .sbtn.ue:hover { opacity: 0.85; }
     /* RATING STRIP */
     .rbar-inline { display: flex; align-items: center; gap: 10px; margin-top: 18px; max-width: 860px; }
     .rbar-score { font-family: var(--fc); font-weight: 900; font-size: 22px; color: var(--d); line-height: 1; }
@@ -184,8 +184,8 @@ const T = {
 };
 
 const BTN = {
-  pt: { map:'Ver no Mapa', call:'Ligar', ue:'Delivery — Uber Eats', rev:'Ver reviews' },
-  en: { map:'View on Map', call:'Call', ue:'Delivery — Uber Eats', rev:'See reviews' }
+  pt: { map:'Ver no Mapa', call:'Ligar', ue:'Delivery', rev:'Ver reviews' },
+  en: { map:'View on Map', call:'Call', ue:'Delivery', rev:'See reviews' }
 };
 
 let lang = localStorage.getItem('lang') || 'pt';
