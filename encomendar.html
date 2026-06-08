@@ -123,6 +123,9 @@
       </div>
       <div class="frow">
         <div class="fg"><label data-i18n="f_data">Data pretendida *</label><input id="o-data" type="date"></div>
+        <div class="fg"><label data-i18n="f_hora">Hora de recolha *</label><input id="o-hora" type="time" min="11:30" max="21:30"></div>
+      </div>
+      <div class="frow s1">
         <div class="fg"><label data-i18n="f_notas">Notas</label><input id="o-notas" type="text" data-ph="f_notas_ph" placeholder="Sabores, alergias, etc."></div>
       </div>
       <button class="wab" onclick="sendWA()">
@@ -199,7 +202,7 @@ const T = {
     tab_caixas:'Caixas', tab_min:'Miniaturas', tab_cong:'Congelados',
     sum_lab:'Resumo da encomenda',
     f_nome:'Nome *', f_tel:'Telemóvel *', f_email:'Email', f_loja:'Loja para levantamento *',
-    f_loja_ph:'— Escolher loja —', f_data:'Data pretendida *', f_notas:'Notas',
+    f_loja_ph:'— Escolher loja —', f_data:'Data pretendida *', f_hora:'Hora de recolha *', f_notas:'Notas',
     f_notas_ph:'Sabores, alergias, etc.',
     wa_btn:'Encomendar via WhatsApp',
     wa_note:'A encomenda será confirmada via WhatsApp. Pagamento no levantamento.',
@@ -214,7 +217,7 @@ const T = {
     tab_caixas:'Boxes', tab_min:'Minis', tab_cong:'Frozen',
     sum_lab:'Order summary',
     f_nome:'Name *', f_tel:'Phone *', f_email:'Email', f_loja:'Pick-up store *',
-    f_loja_ph:'— Choose store —', f_data:'Preferred date *', f_notas:'Notes',
+    f_loja_ph:'— Choose store —', f_data:'Preferred date *', f_hora:'Pick-up time *', f_notas:'Notes',
     f_notas_ph:'Flavors, allergies, etc.',
     wa_btn:'Order via WhatsApp',
     wa_note:'Your order will be confirmed via WhatsApp. Payment at pick-up.',
@@ -272,14 +275,14 @@ function sendWA() {
   if (!sel.length) { alert(lang==='pt'?'Seleciona pelo menos um produto.':'Please select at least one product.'); return; }
   const nome=document.getElementById('o-nome').value.trim(), tel=document.getElementById('o-tel').value.trim();
   const email=document.getElementById('o-email').value.trim(), loja=document.getElementById('o-loja').value;
-  const data=document.getElementById('o-data').value, nota=document.getElementById('o-notas').value.trim();
-  if (!nome||!tel||!loja||!data) { alert(lang==='pt'?'Preenche os campos obrigatórios (*).':'Fill in the required fields (*).'); return; }
+  const data=document.getElementById('o-data').value, hora=document.getElementById('o-hora').value, nota=document.getElementById('o-notas').value.trim();
+  if (!nome||!tel||!loja||!data||!hora) { alert(lang==='pt'?'Preenche os campos obrigatórios (*).':'Fill in the required fields (*).'); return; }
   const tot = sel.reduce((s,p)=>s+p.price*qtys[p.id],0);
   let m=`🥐 *ENCOMENDA — CASA DO CROQUETE*\n\n📦 *PRODUTOS:*\n`;
   sel.forEach(p=>{m+=`• ${qtys[p.id]}× ${p.pt} — ${p.price*qtys[p.id]}€\n`;});
   m+=`\n💰 *TOTAL: ${tot}€*\n\n👤 *DADOS:*\nNome: ${nome}\nTelemóvel: ${tel}\n`;
   if (email) m+=`Email: ${email}\n`;
-  m+=`Loja: ${loja}\nData: ${data}\n`;
+  m+=`Loja: ${loja}\nData: ${data}\nHora de recolha: ${hora}\n`;
   if (nota) m+=`Notas: ${nota}\n`;
   window.location.href = 'https://wa.me/351933066002?text='+encodeURIComponent(m);
 }
