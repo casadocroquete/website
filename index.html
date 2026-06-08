@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa do Croquete — Tradição Favorita</title>
+  <meta name="description" content="Croquetes artesanais em Lisboa. Encomenda caixas de 6 via WhatsApp. Alvalade e Praça de Espanha.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* HERO */
+    .hero {
+      min-height: 100vh; background: var(--y);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 40px 80px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='76' height='46' viewBox='0 0 76 46' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='4' y='4' width='68' height='38' rx='19' fill='none' stroke='%2326353a' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-size: 96px 58px; opacity: 0.055;
+    }
+    .hero-logo { width: min(340px, 72vw); margin: 0 auto 24px; position: relative; }
+    .hero-logo img { width: 100%; height: auto; }
+    .hero-tag {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--d); opacity: 0.4; margin-bottom: 28px; position: relative;
+    }
+    .hero-sub {
+      font-size: 18px; color: var(--d); opacity: 0.72; max-width: 420px;
+      margin: 0 auto 44px; position: relative; text-wrap: pretty;
+    }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .hero-scroll {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--d); opacity: 0.35;
+    }
+    .hero-scroll::after { content: ''; width: 1px; height: 36px; background: var(--d); opacity: 0.35; display: block; }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .about-text h2 {
+      font-family: var(--fc); font-weight: 900; font-size: clamp(28px, 3vw, 40px);
+      text-transform: uppercase; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.01em;
+    }
+    .about-text p { font-size: 16px; opacity: 0.7; line-height: 1.75; text-wrap: pretty; margin-bottom: 16px; }
+    .about-text .press-quote {
+      font-size: 14px; font-weight: 600; opacity: 0.55; border-left: 3px solid var(--y);
+      padding-left: 16px; margin-top: 20px; line-height: 1.5;
+    }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .stat { background: var(--d); border-radius: 12px; padding: 28px 24px; }
+    .stat-num {
+      font-family: var(--fc); font-weight: 900; font-size: 40px; color: var(--y);
+      line-height: 1; margin-bottom: 6px;
+    }
+    .stat-label { font-size: 13px; color: #fff; opacity: 0.7; line-height: 1.3; }
+
+    /* CTA CARDS */
+    .cta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .cta-card {
+      background: rgba(255,255,255,.04); padding: 48px 40px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: background 0.2s; position: relative; overflow: hidden;
+    }
+    .cta-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--y); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .cta-card:hover { background: rgba(255,255,255,.08); }
+    .cta-card:hover::after { transform: scaleX(1); }
+    .cta-icon { width: 48px; height: 48px; }
+    .cta-icon svg { width: 100%; height: 100%; }
+    .cta-name {
+      font-family: var(--fc); font-weight: 900; font-size: clamp(16px, 1.8vw, 22px);
+      text-transform: uppercase; letter-spacing: -0.01em; line-height: 1;
+    }
+    .cta-desc { font-size: 15px; opacity: 0.6; line-height: 1.6; flex: 1; text-wrap: pretty; }
+    .cta-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--y); transition: gap 0.2s;
+    }
+    .cta-card:hover .cta-link { gap: 12px; }
+
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; gap: 36px; }
+      .cta-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 100px 20px 64px; }
+    }
+    @media (max-width: 480px) {
+      .cta-grid { grid-template-columns: 1fr; }
+    }
+    /* PRESS */
+    .ngrid-home { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .nc {
+      border-radius: 14px; overflow: hidden;
+      border: 1.5px solid rgba(38,53,58,.1);
+      display: flex; flex-direction: column;
+      transition: transform 0.15s, box-shadow 0.15s; text-decoration: none; color: var(--d); background: #fff;
+    }
+    .nc:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(38,53,58,.09); }
+    .nc-pub { padding: 22px 24px 16px; display: flex; align-items: center; gap: 12px; }
+    .pub-badge {
+      width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--fc); font-weight: 900; font-size: 12px; color: #fff; letter-spacing: 0.05em;
+    }
+    .pub-info { display: flex; flex-direction: column; gap: 2px; }
+    .pub-name { font-size: 13px; font-weight: 700; }
+    .pub-date { font-size: 11px; opacity: 0.38; }
+    .nc-body { padding: 0 24px 22px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .nc-title { font-weight: 700; font-size: 15px; line-height: 1.4; flex: 1; text-wrap: pretty; }
+    .nc-arrow { font-size: 18px; opacity: 0.25; align-self: flex-end; transition: opacity 0.2s; }
+    .nc:hover .nc-arrow { opacity: 0.65; }
+    .sh-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; }
+    .see-all { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; transition: opacity 0.2s; padding-bottom: 4px; }
+    .see-all:hover { opacity: 1; }
+    @media (max-width: 760px) { .ngrid-home { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="mainNav">
+  <a href="index.html" class="nav-logo">
+  <img class="logo-lgt" src="LOGO_ESCURO.svg" alt="Casa do Croquete">
+  <img class="logo-drk" src="LOGO_CLARO.svg" alt="Casa do Croquete">
+</a>
+  <ul class="nav-links">
+    <li><a href="encomendar.html" data-i18n="nav_enc">Encomendar</a></li>
+    <li><a href="delivery.html">Delivery</a></li>
+    <li><a href="eventos.html">B2B</a></li>
+    <li><a href="lojas.html" data-i18n="nav_lojas">Lojas</a></li>
+    <li><a href="https://www.instagram.com/casa.do.croquete" target="_blank" rel="noopener" class="nav-ig-link" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-ham" id="navHam" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="lang-btn" id="langToggle">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-logo"><img src="LOGO_ESCURO.svg" alt="Casa do Croquete — Tradição Favorita"></div>
+  <p class="hero-tag" data-i18n="hero_tag">Lisboa, Portugal</p>
+  <p class="hero-sub" data-i18n="hero_sub">Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.</p>
+  <div class="hero-ctas">
+    <a href="encomendar.html" class="btn-d" data-i18n="hero_c1">Encomendar agora</a>
+    <a href="lojas.html" class="btn-ol" data-i18n="hero_c2">Ver Lojas</a>
+  </div>
+  <div class="hero-scroll"><span>scroll</span></div>
+</section>
+
+<!-- CTA CARDS -->
+<section class="sec dk">
+  <div class="wrap">
+    <div class="cta-grid">
+      <a href="encomendar.html" class="cta-card">
+        <div class="cta-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="16" width="40" height="24" rx="12" fill="rgba(251,184,15,.15)" stroke="#fbb80f" stroke-width="2"/>
+            <rect x="10" y="8" width="28" height="16" rx="8" fill="rgba(251,184,15,.1)" stroke="#fbb80f" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="cta-name" data-i18n="cta1_name">Encomendar</div>
+        <p class="cta-desc" data-i18n="cta1_desc">Caixas de 6 croquetes e pipocas para levar para casa. Encomenda em segundos via WhatsApp.</p>
+        <span class="cta-link"><span data-i18n="cta1_link">Encomendar agora</span> →</span>
+      </a>
+      <a href="delivery.html" class="cta-card">
+        <div class="cta-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 22h32l-3 18H11L8 22z" fill="rgba(251,184,15,.15)" stroke="#fbb80f" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M16 22v-5a8 8 0 0 1 16 0v5" stroke="#fbb80f" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 33l3 3 7-7" stroke="#fbb80f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="cta-name" data-i18n="cta2_name">Delivery</div>
+        <p class="cta-desc" data-i18n="cta2_desc">Pede via Uber Eats nas duas localizações. Croquetes entregues em casa, quentinhos e acabados de fazer.</p>
+        <span class="cta-link"><span data-i18n="cta2_link">Pedir agora</span> →</span>
+      </a>
+      <a href="eventos.html" class="cta-card">
+        <div class="cta-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="18" width="32" height="22" rx="3" fill="rgba(251,184,15,.15)" stroke="#fbb80f" stroke-width="2"/>
+            <path d="M16 18v-4a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v4" stroke="#fbb80f" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8 28h32" stroke="#fbb80f" stroke-width="1.5" stroke-linecap="round"/>
+            <rect x="20" y="24" width="8" height="8" rx="1" fill="rgba(251,184,15,.25)" stroke="#fbb80f" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="cta-name" data-i18n="cta3_name">B2B</div>
+        <p class="cta-desc" data-i18n="cta3_desc">Vende os nossos croquetes artesanais no teu restaurante ou espaço.</p>
+        <span class="cta-link"><span data-i18n="cta3_link">Saber mais</span> →</span>
+      </a>
+      <a href="lojas.html" class="cta-card">
+        <div class="cta-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 6C17.37 6 12 11.37 12 18c0 9 12 24 12 24s12-15 12-24c0-6.63-5.37-12-12-12z" fill="rgba(251,184,15,.15)" stroke="#fbb80f" stroke-width="2"/>
+            <circle cx="24" cy="18" r="4" fill="#fbb80f"/>
+          </svg>
+        </div>
+        <div class="cta-name" data-i18n="cta4_name">Lojas</div>
+        <p class="cta-desc" data-i18n="cta4_desc">Alvalade e Praça de Espanha. Vem ao balcão, senta-te, ou faz takeaway.</p>
+        <span class="cta-link"><span data-i18n="cta4_link">Ver lojas e horários</span> →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sh-row">
+      <div>
+        <span class="slabel" data-i18n="news_label">Imprensa</span>
+        <h2 class="stitle" data-i18n="news_title">Na Imprensa</h2>
+      </div>
+      <a href="noticias.html" class="see-all" data-i18n="news_more">Ver todas →</a>
+    </div>
+    <div class="ngrid-home">
+      <a href="https://www.timeout.pt/lisboa/pt/noticias/como-e-que-se-conquista-um-bairro-com-um-bom-croquete-a-preco-de-pastelaria-042126" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#e8003d;">TO</div>
+          <div class="pub-info"><span class="pub-name">Time Out Lisboa</span><span class="pub-date">Abril 2026</span></div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">“Como é que se conquista um bairro? Com um bom croquete a preço de pastelaria”</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+      <a href="https://www.nit.pt/comida/restaurantes/depois-de-vender-150-mil-salgados-num-ano-casa-do-croquete-abre-segundo-espaco-em-lisboa" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#111;">NiT</div>
+          <div class="pub-info"><span class="pub-name">NiT</span><span class="pub-date">Janeiro 2026</span></div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">“Depois de vender 150 mil salgados num ano, Casa do Croquete abre segundo espaço em Lisboa”</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+      <a href="https://visao.pt/visaose7e/comer-e-beber/2025-02-14-casa-do-croquete-serao-estes-os-melhores-croquetes-de-lisboa/" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#c94a20;">V</div>
+          <div class="pub-info"><span class="pub-name">Visão</span><span class="pub-date">Fevereiro 2025</span></div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">“Casa do Croquete: Serão estes os melhores croquetes de Lisboa?”</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+      <a href="https://magg.sapo.pt/comida/restaurantes/artigos/casa-do-croquete" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#1b3a6b;">M</div>
+          <div class="pub-info"><span class="pub-name">MAGG</span><span class="pub-date">2025</span></div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">“Dos 3 dias de produção ao recheio de bacalhau, conheça este novo spot”</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="foot-logo"><img src="LOGO_CLARO.svg" alt="Casa do Croquete"></div>
+      <p class="foot-desc" data-i18n="foot_desc">Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos. Duas lojas em Lisboa.</p>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_nav">Navegar</h4>
+      <ul>
+        <li><a href="encomendar.html" data-i18n="nav_enc">Encomendar</a></li>
+        <li><a href="delivery.html">Delivery</a></li>
+        <li><a href="eventos.html">B2B</a></li>
+        <li><a href="lojas.html" data-i18n="nav_lojas">Lojas</a></li>
+        <li><a href="noticias.html" data-i18n="nav_news">Notícias</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_cont">Contacto</h4>
+      <ul>
+        <li><a href="tel:+351933066002">+351 933 066 002</a></li>
+        <li><a href="mailto:acasadocroquete@gmail.com">acasadocroquete@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">@casa.do.croquete</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span class="foot-copy" data-i18n="foot_copy">© 2026 Casa do Croquete. Todos os direitos reservados.</span>
+    <div class="foot-soc">
+      <a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/351933066002" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const T = {
+  pt: {
+    nav_enc:'Encomendar', nav_lojas:'Lojas', nav_news:'Notícias',
+    hero_tag:'Lisboa, Portugal',
+    hero_sub:'Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.',
+    hero_c1:'Encomendar agora', hero_c2:'Ver Lojas',
+    cta1_name:'Encomendar', cta1_desc:'Caixas de 6 croquetes e pipocas para levar para casa. Encomenda em segundos via WhatsApp.', cta1_link:'Encomendar agora',
+    cta2_name:'Delivery', cta2_desc:'Pede via Uber Eats nas duas localizações. Croquetes entregues em casa, quentinhos e acabados de fazer.', cta2_link:'Pedir agora',
+    cta3_name:'B2B', cta3_desc:'Vende os nossos croquetes artesanais no teu restaurante ou espaço.', cta3_link:'Saber mais',
+    cta4_name:'Lojas', cta4_desc:'Alvalade e Praça de Espanha. Vem ao balcão, senta-te, ou faz takeaway.', cta4_link:'Ver lojas e horários',
+    news_label:'Imprensa', news_title:'Na Imprensa', news_more:'Ver todas →',
+    foot_desc:'Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos. Duas lojas em Lisboa.',
+    foot_nav:'Navegar', foot_cont:'Contacto',
+    foot_copy:'© 2026 Casa do Croquete. Todos os direitos reservados.',
+  },
+  en: {
+    nav_enc:'Order', nav_lojas:'Stores', nav_news:'News',
+    hero_tag:'Lisbon, Portugal',
+    hero_sub:'Artisan croquettes, slowly cooked every day by our hands.',
+    hero_c1:'Order now', hero_c2:'Our Stores',
+    cta1_name:'Order', cta1_desc:'Boxes of 6 croquettes and pipocas to take home. Order in seconds via WhatsApp.', cta1_link:'Order now',
+    cta2_name:'Delivery', cta2_desc:'Order via Uber Eats from both locations. Delivered hot to your door.', cta2_link:'Order now',
+    cta3_name:'B2B', cta3_desc:'Sell our artisan croquettes in your restaurant or venue.', cta3_link:'Learn more',
+    cta4_name:'Stores', cta4_desc:'Alvalade and Praça de Espanha. Sit at the counter or order takeaway.', cta4_link:'See stores & hours',
+    news_label:'Press', news_title:'In the Press', news_more:'See all →',
+    foot_desc:'Artisan croquettes, slowly cooked every day by our hands. Two stores in Lisbon.',
+    foot_nav:'Navigate', foot_cont:'Contact',
+    foot_copy:'© 2026 Casa do Croquete. All rights reserved.',
+  }
+};
+
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('dark', scrollY > 80), {passive:true});
+
+let lang = localStorage.getItem('lang') || 'pt';
+function applyLang(l) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (T[l]?.[el.dataset.i18n] !== undefined) el.textContent = T[l][el.dataset.i18n];
+  });
+  document.getElementById('langToggle').textContent = l==='pt'?'EN':'PT';
+  document.documentElement.lang = l;
+  localStorage.setItem('lang', l);
+}
+document.getElementById('langToggle').addEventListener('click', () => {
+  lang = lang==='pt'?'en':'pt'; applyLang(lang);
+});
+applyLang(lang);
+
+(function(){
+  var ham = document.getElementById('navHam');
+  var links = document.querySelector('.nav-links');
+  if (!ham || !links) return;
+  ham.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+</body>
+</html>

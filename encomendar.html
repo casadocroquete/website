@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encomendar — Casa do Croquete</title>
+  <link rel="stylesheet" href="style.css">
+    <style>
+    .ptabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .ptab {
+      padding: 9px 22px; border-radius: 100px;
+      font-family: var(--f); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1.5px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6); background: transparent;
+      transition: all 0.15s; cursor: pointer;
+    }
+    .ptab.active { background: var(--y); color: var(--d); border-color: var(--y); }
+    .ptab:hover:not(.active) { border-color: rgba(255,255,255,.5); color: #fff; }
+    .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .pc {
+      background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s;
+    }
+    .pc:hover { background: rgba(255,255,255,.1); }
+    .pc.sel { border-color: var(--y); background: rgba(251,184,15,.1); }
+    .pn { font-weight: 700; font-size: 16px; line-height: 1.2; }
+    .pd { font-size: 13px; opacity: 0.52; flex: 1; }
+    .pf { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .pp { font-family: var(--fc); font-weight: 900; font-size: 32px; color: var(--y); }
+    .qw { display: flex; align-items: center; gap: 12px; }
+    .qb {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,.12); color: #fff; font-size: 19px;
+      display: flex; align-items: center; justify-content: center; transition: background 0.15s; cursor: pointer; font-family: var(--f); border: none;
+    }
+    .qb:hover { background: var(--y); color: var(--d); }
+    .qv { font-weight: 700; font-size: 17px; min-width: 20px; text-align: center; }
+
+    .ofw {
+      background: rgba(255,255,255,.05); border: 1.5px solid rgba(255,255,255,.1);
+      border-radius: 16px; padding: 40px; max-width: 680px; margin: 0 auto;
+    }
+    .osum { background: rgba(251,184,15,.12); border: 1.5px solid rgba(251,184,15,.3); border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; display: none; }
+    .osum.on { display: block; }
+    .osl { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--y); margin-bottom: 8px; }
+    .osi { font-size: 14px; opacity: 0.8; display: flex; flex-direction: column; gap: 4px; }
+    .ost { font-family: var(--fc); font-weight: 900; font-size: 24px; color: var(--y); margin-top: 8px; }
+
+    .wab {
+      width: 100%; margin-top: 20px; padding: 17px;
+      background: #25D366; color: #fff; border-radius: 100px;
+      font-size: 15px; font-weight: 700; letter-spacing: 0.04em;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      transition: transform 0.15s, box-shadow 0.15s; border: none; cursor: pointer; font-family: var(--f);
+    }
+    .wab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.45); }
+    .wab svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .fnote { font-size: 12px; opacity: 0.32; text-align: center; margin-top: 10px; }
+
+    @media (max-width: 760px) {
+      .pgrid { grid-template-columns: 1fr; }
+      .ofw { padding: 24px 16px; }
+    }
+    @media (max-width: 1000px) and (min-width: 761px) {
+      .pgrid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav dark" id="mainNav">
+  <a href="index.html" class="nav-logo">
+  <img class="logo-lgt" src="LOGO_ESCURO.svg" alt="Casa do Croquete">
+  <img class="logo-drk" src="LOGO_CLARO.svg" alt="Casa do Croquete">
+</a>
+  <ul class="nav-links">
+    <li><a href="encomendar.html" class="active" data-i18n="nav_enc">Encomendar</a></li>
+    <li><a href="delivery.html">Delivery</a></li>
+    <li><a href="eventos.html">B2B</a></li>
+    <li><a href="lojas.html" data-i18n="nav_lojas">Lojas</a></li>
+    <li><a href="https://www.instagram.com/casa.do.croquete" target="_blank" rel="noopener" class="nav-ig-link" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-ham" id="navHam" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="lang-btn" id="langToggle">EN</button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <span class="pg-label" data-i18n="ph_label">Encomendas</span>
+    <h1 data-i18n="ph_title">Levar Para Casa</h1>
+    <p class="pg-sub" data-i18n="ph_sub">Escolhe os teus produtos e encomenda via WhatsApp. Levantamento nas nossas lojas.</p>
+  </div>
+</div>
+
+<section class="sec dk">
+  <div class="wrap">
+    <div class="ptabs" id="ptabs">
+      <button class="ptab active" data-cat="caixas" data-i18n="tab_caixas">Caixas</button>
+      <button class="ptab" data-cat="miniaturas" data-i18n="tab_min">Miniaturas</button>
+      <button class="ptab" data-cat="congelados" data-i18n="tab_cong">Congelados</button>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+    <div class="ofw">
+      <div class="osum" id="osum">
+        <div class="osl" data-i18n="sum_lab">Resumo da encomenda</div>
+        <div class="osi" id="oitems"></div>
+        <div class="ost" id="ototl"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label data-i18n="f_nome">Nome *</label><input id="o-nome" type="text" autocomplete="name"></div>
+        <div class="fg"><label data-i18n="f_tel">Telemóvel *</label><input id="o-tel" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label data-i18n="f_email">Email</label><input id="o-email" type="email" autocomplete="email"></div>
+        <div class="fg">
+          <label data-i18n="f_loja">Loja para levantamento *</label>
+          <select id="o-loja">
+            <option value="" data-i18n="f_loja_ph">— Escolher loja —</option>
+            <option value="Alvalade — Rua Silva e Albuquerque 29A">Alvalade</option>
+            <option value="Praça de Espanha — Av. Columbano Bordalo Pinheiro 70B">Praça de Espanha</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label data-i18n="f_data">Data pretendida *</label><input id="o-data" type="date"></div>
+        <div class="fg"><label data-i18n="f_notas">Notas</label><input id="o-notas" type="text" data-ph="f_notas_ph" placeholder="Sabores, alergias, etc."></div>
+      </div>
+      <button class="wab" onclick="sendWA()">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span data-i18n="wa_btn">Encomendar via WhatsApp</span>
+      </button>
+      <p class="fnote" data-i18n="wa_note">A encomenda será confirmada via WhatsApp. Pagamento no levantamento.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="foot-logo"><img src="LOGO_CLARO.svg" alt="Casa do Croquete"></div>
+      <p class="foot-desc" data-i18n="foot_desc">Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.</p>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_nav">Navegar</h4>
+      <ul>
+        <li><a href="encomendar.html" data-i18n="nav_enc">Encomendar</a></li>
+        <li><a href="delivery.html">Delivery</a></li>
+        <li><a href="eventos.html">B2B</a></li>
+        <li><a href="lojas.html" data-i18n="nav_lojas">Lojas</a></li>
+        <li><a href="noticias.html" data-i18n="nav_news">Notícias</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_cont">Contacto</h4>
+      <ul>
+        <li><a href="tel:+351933066002">+351 933 066 002</a></li>
+        <li><a href="mailto:acasadocroquete@gmail.com">acasadocroquete@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">@casa.do.croquete</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span class="foot-copy" data-i18n="foot_copy">© 2026 Casa do Croquete. Todos os direitos reservados.</span>
+    <div class="foot-soc">
+      <a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/351933066002" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const PRODS = [
+  // Caixas
+  {id:'trad', cat:'caixas', pt:'Caixa 6 Tradicional', en:'Box 6 Traditional', dpt:'Novilho de vaca e cachaço de porco', den:'Beef and pork shoulder', price:11},
+  {id:'casa', cat:'caixas', pt:'Caixa 6 Casa', en:'Box 6 House', dpt:'Cachaço de porco', den:'Pork shoulder', price:11},
+  {id:'bac', cat:'caixas', pt:'Caixa 6 Bacalhau', en:'Box 6 Codfish', dpt:'Bacalhau, broa e coentros', den:'Codfish, cornbread and coriander', price:11},
+  {id:'veg', cat:'caixas', pt:'Caixa 6 Vegetariano', en:'Box 6 Vegetarian', dpt:'Feijão branco e espargos verdes', den:'White beans and green asparagus', price:11},
+  {id:'nov', cat:'caixas', pt:'Caixa 6 Novilho', en:'Box 6 Young Beef', dpt:'Novilho de vaca', den:'Young beef', price:12},
+  {id:'boch', cat:'caixas', pt:'Caixa 6 Bochecha', en:'Box 6 Cheek', dpt:'Bochecha de novilho', den:'Beef cheek', price:12},
+  {id:'osso', cat:'caixas', pt:'Caixa 6 Ossobuco', en:'Box 6 Osso Buco', dpt:'Ossobuco de novilho', den:'Beef osso buco', price:12},
+  {id:'alh', cat:'caixas', pt:'Caixa 6 Alheira', en:'Box 6 Alheira', dpt:'A nossa alheira artesanal', den:'Our artisan alheira sausage', price:9},
+  // Pipocas & Miniaturas
+  {id:'pip24', cat:'miniaturas', pt:'Pipocas 24 un.', en:'Pipocas 24 pcs', dpt:'Mini croquetes de 10g', den:'10g mini croquettes', price:12},
+  {id:'pip48', cat:'miniaturas', pt:'Pipocas 48 un.', en:'Pipocas 48 pcs', dpt:'Mini croquetes de 10g', den:'10g mini croquettes', price:24},
+  {id:'min50', cat:'miniaturas', pt:'50 Miniaturas', en:'50 Mini Bites', dpt:'Mini croquetes de 10g — eventos e celebrações', den:'10g mini bites — events & celebrations', price:50},
+  // Congelados
+  {id:'cg12', cat:'congelados', pt:'12 Congelados', en:'12 Frozen', dpt:'Leva para casa, frita quando quiseres', den:'Take home, fry whenever you want', price:18},
+  {id:'cg25', cat:'congelados', pt:'25 Congelados', en:'25 Frozen', dpt:'Pack família, prontos a fritar', den:'Family pack, ready to fry', price:35},
+];
+let activeCat = 'caixas';
+const qtys = {};
+let lang = localStorage.getItem('lang') || 'pt';
+
+const T = {
+  pt: {
+    nav_enc:'Encomendar', nav_lojas:'Lojas', nav_news:'Notícias', nav_cta:'Encomendar',
+    ph_label:'Encomendas', ph_title:'Levar Para Casa',
+    ph_sub:'Escolhe os teus produtos e encomenda via WhatsApp. Levantamento nas nossas lojas.',
+    tab_caixas:'Caixas', tab_min:'Miniaturas', tab_cong:'Congelados',
+    sum_lab:'Resumo da encomenda',
+    f_nome:'Nome *', f_tel:'Telemóvel *', f_email:'Email', f_loja:'Loja para levantamento *',
+    f_loja_ph:'— Escolher loja —', f_data:'Data pretendida *', f_notas:'Notas',
+    f_notas_ph:'Sabores, alergias, etc.',
+    wa_btn:'Encomendar via WhatsApp',
+    wa_note:'A encomenda será confirmada via WhatsApp. Pagamento no levantamento.',
+    foot_desc:'Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.',
+    foot_nav:'Navegar', foot_cont:'Contacto',
+    foot_copy:'© 2026 Casa do Croquete. Todos os direitos reservados.',
+  },
+  en: {
+    nav_enc:'Order', nav_lojas:'Stores', nav_news:'News', nav_cta:'Order',
+    ph_label:'Orders', ph_title:'Take Home',
+    ph_sub:'Choose your products and order via WhatsApp. Pick up at our stores.',
+    tab_caixas:'Boxes', tab_min:'Minis', tab_cong:'Frozen',
+    sum_lab:'Order summary',
+    f_nome:'Name *', f_tel:'Phone *', f_email:'Email', f_loja:'Pick-up store *',
+    f_loja_ph:'— Choose store —', f_data:'Preferred date *', f_notas:'Notes',
+    f_notas_ph:'Flavors, allergies, etc.',
+    wa_btn:'Order via WhatsApp',
+    wa_note:'Your order will be confirmed via WhatsApp. Payment at pick-up.',
+    foot_desc:'Artisan croquettes, slowly cooked every day by our hands.',
+    foot_nav:'Navigate', foot_cont:'Contact',
+    foot_copy:'© 2026 Casa do Croquete. All rights reserved.',
+  }
+};
+
+function renderProds() {
+  const visible = PRODS.filter(p => p.cat === activeCat);
+  document.getElementById('pgrid').innerHTML = visible.map(p => `
+    <div class="pc${qtys[p.id]?' sel':''}" id="pc-${p.id}">
+      <div class="pn">${lang==='pt'?p.pt:p.en}</div>
+      <div class="pd">${lang==='pt'?p.dpt:p.den}</div>
+      <div class="pf">
+        <div class="pp">${p.price}€</div>
+        <div class="qw">
+          <button class="qb" onclick="chQty('${p.id}',-1)">−</button>
+          <span class="qv" id="qv-${p.id}">${qtys[p.id]||0}</span>
+          <button class="qb" onclick="chQty('${p.id}',1)">+</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+document.getElementById('ptabs').addEventListener('click', function(e) {
+  const btn = e.target.closest('.ptab');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderProds();
+});
+
+function chQty(id, d) {
+  qtys[id] = Math.max(0, (qtys[id]||0)+d);
+  const v = document.getElementById('qv-'+id);
+  if (v) v.textContent = qtys[id];
+  const c = document.getElementById('pc-'+id);
+  if (c) c.classList.toggle('sel', qtys[id]>0);
+  updSum();
+}
+
+function updSum() {
+  const sel = PRODS.filter(p=>qtys[p.id]>0);
+  const tot = sel.reduce((s,p)=>s+p.price*qtys[p.id],0);
+  document.getElementById('oitems').innerHTML = sel.map(p=>`<div>${qtys[p.id]}× ${lang==='pt'?p.pt:p.en} — ${p.price*qtys[p.id]}€</div>`).join('');
+  document.getElementById('ototl').textContent = 'Total: '+tot+'€';
+  document.getElementById('osum').classList.toggle('on', sel.length>0);
+}
+
+function sendWA() {
+  const sel = PRODS.filter(p=>qtys[p.id]>0);
+  if (!sel.length) { alert(lang==='pt'?'Seleciona pelo menos um produto.':'Please select at least one product.'); return; }
+  const nome=document.getElementById('o-nome').value.trim(), tel=document.getElementById('o-tel').value.trim();
+  const email=document.getElementById('o-email').value.trim(), loja=document.getElementById('o-loja').value;
+  const data=document.getElementById('o-data').value, nota=document.getElementById('o-notas').value.trim();
+  if (!nome||!tel||!loja||!data) { alert(lang==='pt'?'Preenche os campos obrigatórios (*).':'Fill in the required fields (*).'); return; }
+  const tot = sel.reduce((s,p)=>s+p.price*qtys[p.id],0);
+  let m=`🥐 *ENCOMENDA — CASA DO CROQUETE*\n\n📦 *PRODUTOS:*\n`;
+  sel.forEach(p=>{m+=`• ${qtys[p.id]}× ${p.pt} — ${p.price*qtys[p.id]}€\n`;});
+  m+=`\n💰 *TOTAL: ${tot}€*\n\n👤 *DADOS:*\nNome: ${nome}\nTelemóvel: ${tel}\n`;
+  if (email) m+=`Email: ${email}\n`;
+  m+=`Loja: ${loja}\nData: ${data}\n`;
+  if (nota) m+=`Notas: ${nota}\n`;
+  window.location.href = 'https://wa.me/351933066002?text='+encodeURIComponent(m);
+}
+
+function applyLang(l) {
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    if (T[l]?.[el.dataset.i18n]!==undefined) el.textContent=T[l][el.dataset.i18n];
+  });
+  document.querySelectorAll('[data-ph]').forEach(el=>{
+    if (T[l]?.[el.dataset.ph]) el.placeholder=T[l][el.dataset.ph];
+  });
+  const ph=document.querySelector('#o-loja option[value=""]');
+  if (ph) ph.textContent=T[l]['f_loja_ph'];
+  document.getElementById('langToggle').textContent=l==='pt'?'EN':'PT';
+  document.documentElement.lang=l;
+  localStorage.setItem('lang',l);
+}
+
+document.getElementById('langToggle').addEventListener('click',()=>{lang=lang==='pt'?'en':'pt';applyLang(lang);renderProds();updSum();});
+applyLang(lang);
+renderProds();
+
+(function(){
+  var ham = document.getElementById('navHam');
+  var links = document.querySelector('.nav-links');
+  if (!ham || !links) return;
+  ham.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+</body>
+</html>

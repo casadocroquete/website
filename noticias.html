@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notícias — Casa do Croquete</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .ngrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .nc {
+      border-radius: 16px; overflow: hidden;
+      border: 1.5px solid rgba(38,53,58,.1);
+      display: flex; flex-direction: column;
+      transition: transform 0.15s, box-shadow 0.15s; text-decoration: none; color: var(--d);
+    }
+    .nc:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(38,53,58,.12); }
+    .nc-pub {
+      padding: 28px 28px 24px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .pub-badge {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--fc); font-weight: 900; font-size: 13px; color: #fff;
+      letter-spacing: 0.05em; flex-shrink: 0;
+    }
+    .pub-info { display: flex; flex-direction: column; gap: 2px; }
+    .pub-name { font-size: 13px; font-weight: 700; }
+    .pub-date { font-size: 12px; opacity: 0.38; }
+    .nc-body { padding: 0 28px 28px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .nc-title { font-weight: 700; font-size: 18px; line-height: 1.35; flex: 1; text-wrap: pretty; }
+    .nc-arrow { font-size: 20px; opacity: 0.3; align-self: flex-end; transition: opacity 0.2s; }
+    .nc:hover .nc-arrow { opacity: 0.7; }
+    @media (max-width: 760px) { .ngrid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav dark" id="mainNav">
+  <a href="index.html" class="nav-logo">
+  <img class="logo-lgt" src="LOGO_ESCURO.svg" alt="Casa do Croquete">
+  <img class="logo-drk" src="LOGO_CLARO.svg" alt="Casa do Croquete">
+</a>
+  <ul class="nav-links">
+    <li><a href="encomendar.html" data-i18n="nav_enc">Encomendar</a></li>
+    <li><a href="delivery.html">Delivery</a></li>
+    <li><a href="eventos.html">B2B</a></li>
+    <li><a href="lojas.html" data-i18n="nav_lojas">Lojas</a></li>
+    <li><a href="https://www.instagram.com/casa.do.croquete" target="_blank" rel="noopener" class="nav-ig-link" aria-label="Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-ham" id="navHam" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <button class="lang-btn" id="langToggle">EN</button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="wrap">
+    <span class="pg-label" data-i18n="ph_label">Imprensa</span>
+    <h1 data-i18n="ph_title">O Que Dizem de Nós</h1>
+    <p class="pg-sub" data-i18n="ph_sub">A Casa do Croquete na imprensa portuguesa.</p>
+  </div>
+</div>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="ngrid">
+
+      <a href="https://www.timeout.pt/lisboa/pt/noticias/como-e-que-se-conquista-um-bairro-com-um-bom-croquete-a-preco-de-pastelaria-042126" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#e8003d;">TO</div>
+          <div class="pub-info">
+            <span class="pub-name">Time Out Lisboa</span>
+            <span class="pub-date">Abril 2026</span>
+          </div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">"Como é que se conquista um bairro? Com um bom croquete a preço de pastelaria"</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://www.nit.pt/comida/restaurantes/depois-de-vender-150-mil-salgados-num-ano-casa-do-croquete-abre-segundo-espaco-em-lisboa" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#111;">NiT</div>
+          <div class="pub-info">
+            <span class="pub-name">NiT</span>
+            <span class="pub-date">Janeiro 2026</span>
+          </div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">"Depois de vender 150 mil salgados num ano, Casa do Croquete abre segundo espaço em Lisboa"</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://visao.pt/visaose7e/comer-e-beber/2025-02-14-casa-do-croquete-serao-estes-os-melhores-croquetes-de-lisboa/" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#c94a20;">V</div>
+          <div class="pub-info">
+            <span class="pub-name">Visão</span>
+            <span class="pub-date">Fevereiro 2025</span>
+          </div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">"Casa do Croquete: Serão estes os melhores croquetes de Lisboa?"</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="https://magg.sapo.pt/comida/restaurantes/artigos/casa-do-croquete" target="_blank" rel="noopener" class="nc">
+        <div class="nc-pub">
+          <div class="pub-badge" style="background:#1b3a6b;">M</div>
+          <div class="pub-info">
+            <span class="pub-name">MAGG</span>
+            <span class="pub-date">2025</span>
+          </div>
+        </div>
+        <div class="nc-body">
+          <p class="nc-title">"Dos 3 dias de produção ao recheio de bacalhau, conheça este novo spot"</p>
+          <span class="nc-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="foot-logo"><img src="LOGO_CLARO.svg" alt="Casa do Croquete"></div>
+      <p class="foot-desc" data-i18n="foot_desc">Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.</p>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_nav">Navegar</h4>
+      <ul>
+        <li><a href="encomendar.html" data-i18n="nav_enc">Encomendar</a></li>
+        <li><a href="delivery.html">Delivery</a></li>
+        <li><a href="eventos.html">B2B</a></li>
+        <li><a href="lojas.html" data-i18n="nav_lojas">Lojas</a></li>
+        <li><a href="noticias.html" data-i18n="nav_news">Notícias</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_cont">Contacto</h4>
+      <ul>
+        <li><a href="tel:+351933066002">+351 933 066 002</a></li>
+        <li><a href="mailto:acasadocroquete@gmail.com">acasadocroquete@gmail.com</a></li>
+        <li><a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">@casa.do.croquete</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span class="foot-copy" data-i18n="foot_copy">© 2026 Casa do Croquete. Todos os direitos reservados.</span>
+    <div class="foot-soc">
+      <a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/351933066002" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const T = {
+  pt: {
+    nav_enc:'Encomendar', nav_lojas:'Lojas', nav_news:'Notícias', nav_cta:'Encomendar',
+    ph_label:'Imprensa', ph_title:'O Que Dizem de Nós', ph_sub:'A Casa do Croquete na imprensa portuguesa.',
+    foot_desc:'Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.',
+    foot_nav:'Navegar', foot_cont:'Contacto', foot_copy:'© 2026 Casa do Croquete. Todos os direitos reservados.',
+  },
+  en: {
+    nav_enc:'Order', nav_lojas:'Stores', nav_news:'News', nav_cta:'Order',
+    ph_label:'Press', ph_title:'What They Say About Us', ph_sub:'Casa do Croquete in the Portuguese press.',
+    foot_desc:'Artisan croquettes, slowly cooked every day by our hands.',
+    foot_nav:'Navigate', foot_cont:'Contact', foot_copy:'© 2026 Casa do Croquete. All rights reserved.',
+  }
+};
+let lang = localStorage.getItem('lang') || 'pt';
+function applyLang(l) {
+  document.querySelectorAll('[data-i18n]').forEach(el=>{if(T[l]?.[el.dataset.i18n]!==undefined)el.textContent=T[l][el.dataset.i18n];});
+  document.getElementById('langToggle').textContent=l==='pt'?'EN':'PT';
+  document.documentElement.lang=l; localStorage.setItem('lang',l);
+}
+document.getElementById('langToggle').addEventListener('click',()=>{lang=lang==='pt'?'en':'pt';applyLang(lang);});
+applyLang(lang);
+
+(function(){
+  var ham = document.getElementById('navHam');
+  var links = document.querySelector('.nav-links');
+  if (!ham || !links) return;
+  ham.addEventListener('click', function() {
+    var open = links.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  links.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      links.classList.remove('open');
+      ham.classList.remove('open');
+      ham.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+</script>
+</body>
+</html>
