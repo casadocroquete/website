@@ -159,6 +159,25 @@ button { cursor: pointer; font-family: var(--f); border: none; background: none;
   .carousel-nav { bottom: 16px; right: 20px; }
 }
 
+/* VIDEO */
+.sec-video {
+  background: var(--d); overflow: hidden;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 48px; padding: 72px 48px;
+}
+.vid-bg {
+  flex-shrink: 0;
+  height: 520px; width: auto;
+  border-radius: 14px; display: block;
+}
+.vid-overlay { display: none; }
+.vid-content { flex: 1; max-width: 480px; }
+@media (max-width: 900px) {
+  .sec-video { flex-direction: column; padding: 48px 20px; gap: 32px; }
+  .vid-bg { height: 400px; width: 100%; object-fit: cover; border-radius: 10px; }
+  .vid-content { max-width: 100%; }
+}
+
 /* FOOTER */
 footer { background: var(--d); color: #fff; padding: 56px 48px 32px; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.4fr; gap: 48px; max-width: 1120px; margin: 0 auto 40px; }
