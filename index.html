@@ -444,9 +444,7 @@ applyLang(lang);
   }
 
   function getSlideWidth() {
-    const slide = slides[0];
-    const gap = 4;
-    return slide.getBoundingClientRect().width + gap;
+    return slides[0].getBoundingClientRect().width + 6;
   }
 
   function go(n) {
