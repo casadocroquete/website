@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lojas — Casa do Croquete</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     /* TABS */
     .store-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
@@ -19,7 +21,8 @@
     /* CARD */
     .scard { border: 1.5px solid rgba(38,53,58,.12); border-radius: 16px; overflow: hidden; background: #fff; max-width: 860px; }
     .smap { height: 300px; }
-    .smap iframe { width: 100%; height: 100%; border: none; display: block; }
+    #leaflet-map { width: 100%; height: 100%; }
+    .leaflet-tile-pane { filter: saturate(0.9); }
     .sbody { padding: 32px; }
     .sname { font-family: var(--fc); font-weight: 900; font-size: 28px; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 6px; }
     .saddr { font-size: 14px; opacity: 0.58; margin-bottom: 22px; line-height: 1.5; }
@@ -81,7 +84,7 @@
       <button class="stab" id="tab1" onclick="switchStore(1)">Praça de Espanha</button>
     </div>
     <div class="scard">
-      <div class="smap"><iframe id="smap-frame" src="https://www.openstreetmap.org/export/embed.html?bbox=-9.1417%2C38.7531%2C-9.1357%2C38.7591&layer=mapnik&marker=38.7561%2C-9.1387" title="Alvalade" allowfullscreen></iframe></div>
+      <div class="smap"><div id="leaflet-map"></div></div>
       <div class="sbody">
         <div class="sname" id="s-name"></div>
         <div class="saddr" id="s-addr"></div>
@@ -137,7 +140,7 @@ const STORES = [
   {
     name: 'Alvalade',
     addr: { pt: 'Rua Silva e Albuquerque 29A<br>1700-343 Lisboa', en: 'Rua Silva e Albuquerque 29A<br>1700-343 Lisbon' },
-    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-9.1417%2C38.7531%2C-9.1357%2C38.7591&layer=mapnik&marker=38.7561%2C-9.1387',
+    geocode: 'Rua Silva e Albuquerque 29A, Lisboa, Portugal',
     mapLink: 'https://maps.google.com/?q=Rua+Silva+e+Albuquerque+29A+Lisboa',
     reviewLink: 'https://maps.google.com/?q=Casa+do+Croquete+Rua+Silva+e+Albuquerque+29A+Lisboa',
     uberEats: 'https://www.ubereats.com/pt/store/casa-do-croquete-alvalade/Jgcj5_TuXsm9P0b6YVvPiw?srsltid=AfmBOoro_4jiN48xVhc8mropG_sr8ZD3MEz7K0gJQ0Awbg1c_E-rCNqL',
@@ -150,7 +153,7 @@ const STORES = [
   {
     name: 'Praça de Espanha',
     addr: { pt: 'Av. Columbano Bordalo Pinheiro 70B<br>1070-064 Lisboa', en: 'Av. Columbano Bordalo Pinheiro 70B<br>1070-064 Lisbon' },
-    mapSrc: 'https://www.openstreetmap.org/export/embed.html?bbox=-9.1638%2C38.7308%2C-9.1578%2C38.7368&layer=mapnik&marker=38.7338%2C-9.1608',
+    geocode: 'Avenida Columbano Bordalo Pinheiro 70B, Lisboa, Portugal',
     mapLink: 'https://maps.google.com/?q=Av+Columbano+Bordalo+Pinheiro+70B+Lisboa',
     reviewLink: 'https://maps.google.com/?q=Casa+do+Croquete+Av+Columbano+Bordalo+Pinheiro+70B+Lisboa',
     uberEats: 'https://www.ubereats.com/pt-en/store/casa-do-croquete-praca-de-espanha/Un-nlTqeXPuVj6dueWroew?srsltid=AfmBOopFMGbMbvsegsacQS2wm_RFmEeVyHqETvFiwLsk7s3A6MycIwoS',
@@ -186,12 +189,43 @@ const BTN = {
 
 let lang = localStorage.getItem('lang') || 'pt';
 let currentStore = 0;
+let leafletMap = null;
+let leafletMarker = null;
+
+function initMap(lat, lon) {
+  if (!leafletMap) {
+    leafletMap = L.map('leaflet-map', { zoomControl: true, scrollWheelZoom: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd', maxZoom: 19
+    }).addTo(leafletMap);
+  }
+  leafletMap.setView([lat, lon], 17);
+  if (leafletMarker) leafletMarker.remove();
+  const icon = L.divIcon({
+    html: `<div style="width:16px;height:16px;background:#fbb80f;border:3px solid #26353a;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.3)"></div>`,
+    className: '', iconAnchor: [8, 8]
+  });
+  leafletMarker = L.marker([lat, lon], { icon }).addTo(leafletMap);
+}
+
+function geocodeAndRender(address) {
+  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`, {
+    headers: { 'Accept-Language': 'pt' }
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data && data[0]) {
+      initMap(parseFloat(data[0].lat), parseFloat(data[0].lon));
+    }
+  })
+  .catch(() => {});
+}
 
 function renderStore(idx) {
   const s = STORES[idx];
   const l = lang;
-  document.getElementById('smap-frame').src = s.mapSrc;
-  document.getElementById('smap-frame').title = s.name;
+  geocodeAndRender(s.geocode);
   document.getElementById('s-name').textContent = s.name;
   document.getElementById('s-addr').innerHTML = s.addr[l];
   document.getElementById('s-hours').innerHTML = s.hours[l].map(([d,t]) => `<tr><td>${d}</td><td>${t}</td></tr>`).join('');
