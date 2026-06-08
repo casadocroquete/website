@@ -29,6 +29,17 @@
       margin: 0 auto 44px; position: relative; text-wrap: pretty;
     }
     .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .hero-rating {
+      display: inline-flex; align-items: center; gap: 7px; margin-top: 28px;
+      font-size: 13px; color: var(--d); opacity: 0.65; transition: opacity 0.2s;
+      text-decoration: none; position: relative;
+    }
+    .hero-rating:hover { opacity: 1; }
+    .hr-stars { color: var(--d); font-size: 13px; letter-spacing: 1px; }
+    .hr-score { font-weight: 800; font-size: 14px; }
+    .hr-sep { opacity: 0.4; }
+    .hr-label { font-weight: 500; }
+    .hr-arr { opacity: 0.5; font-size: 12px; }
     .hero-scroll {
       position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -151,6 +162,13 @@
     <a href="encomendar.html" class="btn-d" data-i18n="hero_c1">Encomendar agora</a>
     <a href="lojas.html" class="btn-ol" data-i18n="hero_c2">Ver Lojas</a>
   </div>
+  <a href="https://www.google.com/maps/search/Casa+do+Croquete+Lisboa" target="_blank" rel="noopener" class="hero-rating">
+    <span class="hr-stars">★★★★★</span>
+    <span class="hr-score">4.8</span>
+    <span class="hr-sep">·</span>
+    <span class="hr-label" data-i18n="hero_rev">+200 reviews no Google</span>
+    <span class="hr-arr">→</span>
+  </a>
   <div class="hero-scroll"><span>scroll</span></div>
 </section>
 
@@ -304,7 +322,7 @@ const T = {
     nav_enc:'Encomendar', nav_lojas:'Lojas', nav_news:'Notícias',
     hero_tag:'Lisboa, Portugal',
     hero_sub:'Croquetes artesanais, cozinhados lentamente todos os dias pelas nossas mãos.',
-    hero_c1:'Encomendar agora', hero_c2:'Ver Lojas',
+    hero_c1:'Encomendar agora', hero_c2:'Ver Lojas', hero_rev:'+200 reviews no Google',
     cta1_name:'Encomendar', cta1_desc:'Caixas de 6 croquetes e pipocas para levar para casa. Encomenda em segundos via WhatsApp.', cta1_link:'Encomendar agora',
     cta2_name:'Delivery', cta2_desc:'Pede via Uber Eats nas duas localizações. Croquetes entregues em casa, quentinhos e acabados de fazer.', cta2_link:'Pedir agora',
     cta3_name:'B2B', cta3_desc:'Vende os nossos croquetes artesanais no teu restaurante ou espaço.', cta3_link:'Saber mais',
@@ -318,7 +336,7 @@ const T = {
     nav_enc:'Order', nav_lojas:'Stores', nav_news:'News',
     hero_tag:'Lisbon, Portugal',
     hero_sub:'Artisan croquettes, slowly cooked every day by our hands.',
-    hero_c1:'Order now', hero_c2:'Our Stores',
+    hero_c1:'Order now', hero_c2:'Our Stores', hero_rev:'+200 reviews on Google',
     cta1_name:'Order', cta1_desc:'Boxes of 6 croquettes and pipocas to take home. Order in seconds via WhatsApp.', cta1_link:'Order now',
     cta2_name:'Delivery', cta2_desc:'Order via Uber Eats from both locations. Delivered hot to your door.', cta2_link:'Order now',
     cta3_name:'B2B', cta3_desc:'Sell our artisan croquettes in your restaurant or venue.', cta3_link:'Learn more',
