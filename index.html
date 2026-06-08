@@ -173,6 +173,38 @@
   <div class="hero-scroll"><span>scroll</span></div>
 </section>
 
+<!-- CARROSSEL -->
+<section class="sec-carousel">
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="cs"><img src="img/lancamento-01.jpg" alt="Casa do Croquete"></div>
+      <div class="cs"><img src="img/lancamento-02.jpg" alt="Inauguração Alvalade"></div>
+      <div class="cs"><img src="img/lancamento-03.jpg" alt="Lançamento"></div>
+      <div class="cs"><img src="img/lancamento-04.jpg" alt="Esplanada Alvalade"></div>
+      <div class="cs"><img src="img/lancamento-05.jpg" alt="Inauguração"></div>
+      <div class="cs"><img src="img/lancamento-06.jpg" alt="Equipa"></div>
+      <div class="cs"><img src="img/produto-01.jpg" alt="Croquetes artesanais"></div>
+      <div class="cs"><img src="img/produto-02.jpg" alt="Packaging"></div>
+      <div class="cs"><img src="img/produto-03.jpg" alt="Croquete de vitela"></div>
+      <div class="cs"><img src="img/produto-04.jpg" alt="Bolinhas e croquetes"></div>
+      <div class="cs"><img src="img/produto-05.jpg" alt="Bolinhas Super Bock"></div>
+      <div class="cs"><img src="img/produto-06.jpg" alt="Caixas takeaway"></div>
+      <div class="cs"><img src="img/produto-07.jpg" alt="Sandes de croquete"></div>
+      <div class="cs"><img src="img/cozinha-01.jpg" alt="Produção artesanal"></div>
+      <div class="cs"><img src="img/cozinha-02.jpg" alt="Cozinha"></div>
+      <div class="cs"><img src="img/cozinha-03.jpg" alt="Ingredientes"></div>
+      <div class="cs"><img src="img/cozinha-04.jpg" alt="Preparação"></div>
+      <div class="cs"><img src="img/cozinha-05.jpg" alt="Panar"></div>
+      <div class="cs"><img src="img/cozinha-06.jpg" alt="Equipa de cozinha"></div>
+      <div class="cs"><img src="img/cozinha-07.jpg" alt="Vitela estufada"></div>
+    </div>
+  </div>
+  <div class="carousel-nav">
+    <button class="car-btn" id="carPrev" aria-label="Anterior">&#8592;</button>
+    <button class="car-btn" id="carNext" aria-label="Seguinte">&#8594;</button>
+  </div>
+</section>
+
 <!-- CTA CARDS -->
 <section class="sec dk">
   <div class="wrap">
@@ -307,6 +339,16 @@
         <li><a href="https://www.instagram.com/casa.do.croquete/" target="_blank" rel="noopener">@casa.do.croquete</a></li>
       </ul>
     </div>
+    <div class="foot-col">
+      <h4>Horários</h4>
+      <p class="fh-store">Alvalade</p>
+      <p class="fh-row">Seg – Sáb &nbsp;·&nbsp; 11h30–15h / 18h–21h</p>
+      <p class="fh-row">Domingo &nbsp;·&nbsp; 12h–21h</p>
+      <p class="fh-note">* Qui até 21h30 · Sex e Sáb até 22h</p>
+      <p class="fh-store">Praça de Espanha</p>
+      <p class="fh-row">Dom – Sex &nbsp;·&nbsp; 12h–21h</p>
+      <p class="fh-row">Sábado &nbsp;·&nbsp; Fechado</p>
+    </div>
   </div>
   <div class="foot-bot">
     <span class="foot-copy" data-i18n="foot_copy">© 2026 Casa do Croquete. Todos os direitos reservados.</span>
@@ -384,6 +426,60 @@ applyLang(lang);
       document.body.style.overflow = '';
     });
   });
+})();
+
+// CAROUSEL
+(function(){
+  const track = document.getElementById('carouselTrack');
+  const prev  = document.getElementById('carPrev');
+  const next  = document.getElementById('carNext');
+  if (!track || !prev || !next) return;
+
+  const slides = track.querySelectorAll('.cs');
+  const total  = slides.length;
+  let idx = 0;
+
+  function getVisible() {
+    return window.innerWidth <= 760 ? 1 : 3;
+  }
+
+  function getSlideWidth() {
+    const slide = slides[0];
+    const gap = 4;
+    return slide.getBoundingClientRect().width + gap;
+  }
+
+  function go(n) {
+    const vis = getVisible();
+    const max = total - vis;
+    idx = Math.max(0, Math.min(n, max));
+    track.style.transform = `translateX(-${idx * getSlideWidth()}px)`;
+  }
+
+  prev.addEventListener('click', () => go(idx - 1));
+  next.addEventListener('click', () => go(idx + 1));
+
+  // auto-advance every 4s
+  let auto = setInterval(() => {
+    const vis = getVisible();
+    go(idx + 1 >= total - vis + 1 ? 0 : idx + 1);
+  }, 4000);
+
+  [prev, next].forEach(b => b.addEventListener('click', () => {
+    clearInterval(auto);
+    auto = setInterval(() => {
+      const vis = getVisible();
+      go(idx + 1 >= total - vis + 1 ? 0 : idx + 1);
+    }, 4000);
+  }));
+
+  // touch/swipe
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) go(dx > 0 ? idx + 1 : idx - 1);
+  }, {passive:true});
 })();
 </script>
 </body>
