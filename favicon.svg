@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Dark blue background -->
+  <rect width="64" height="64" rx="12" fill="#26353a"/>
+  <!-- Croquete icon, scaled and centered from original path -->
+  <!-- Original path spans ~195-325 x, ~0-135 y in a 456x175 viewBox -->
+  <!-- Scale to fit ~44px in a 64px square, centered -->
+  <g transform="translate(32,32) scale(0.338) translate(-260,-67)">
+    <path fill="#fbb80f" d="M318.41505,111.92943c-6.79593,10.8399-16.04465,16.79219-42.50866,19.62644-26.06021,2.79682-37.76595,2.62187-46.84864-3.91607-13.78966-9.92954-17.09693-30.95711-18.27641-37.79495-3.18921-18.45842-7.55204-34.70483-7.52225-43.16715.05125-14.36902,4.97806-32.86215,33.92595-40.3619,25.22201-6.53329,71.55319-13.20652,82.75022,8.81512,7.3424,14.44128,9.41193,79.35463-1.52021,96.79851"/>
+  </g>
+</svg>
