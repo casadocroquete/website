@@ -239,4 +239,24 @@ footer { background: var(--d); color: #fff; padding: 56px 48px 32px; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
   footer { padding: 40px 20px 24px; }
   .frow { grid-template-columns: 1fr; }
+
+  /* Texto mobile — aumentar proporcionalmente */
+  .slabel { font-size: 13px; }
+  .stitle { font-size: clamp(36px, 9vw, 52px); }
+  .ssub { font-size: 17px; }
+  .page-hero h1 { font-size: clamp(42px, 10vw, 72px); }
+  .pg-sub { font-size: 17px; }
+  .about-text p { font-size: 17px; }
+  .stat-label { font-size: 14px; }
+  .stat-num { font-size: 44px; }
+  .cta-desc { font-size: 16px; }
+  .nc-title { font-size: 16px; }
+  .pub-name { font-size: 14px; }
+  .pub-date { font-size: 12px; }
+  .fg label { font-size: 13px; }
+  .fg input, .fg select, .fg textarea { font-size: 16px; } /* evita zoom automático iOS */
+  .foot-desc { font-size: 16px; }
+  .foot-col ul a { font-size: 16px; }
+  .fh-row { font-size: 15px; }
+  .foot-copy { font-size: 13px; }
 }
